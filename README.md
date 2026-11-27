@@ -24,6 +24,7 @@ pip install -r requirements.txt
 copy .env.example .env          # Windows  (macOS/Linux: cp .env.example .env), then paste your Gemini API key into .env
 python scripts/hello_llm.py     # check the key works
 python examples/support_bot.py  # chat with the demo target bot
+python scripts/day2_run.py      # simulated users chat with the bot; transcripts saved to runs/
 ```
 
 Get a free Gemini API key at [aistudio.google.com](https://aistudio.google.com).

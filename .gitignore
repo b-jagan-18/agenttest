@@ -5,3 +5,6 @@
 .venv/
 __pycache__/
 *.pyc
+
+# Test run output (transcripts)
+runs/

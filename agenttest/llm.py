@@ -5,6 +5,7 @@ from functools import lru_cache
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 
 load_dotenv()  # reads GEMINI_API_KEY and GEMINI_MODEL from the .env file
 
@@ -20,7 +21,17 @@ def get_client() -> genai.Client:
         raise SystemExit(
             "No API key found. Copy .env.example to .env and paste your Gemini key into it."
         )
-    return genai.Client(api_key=api_key)
+    return genai.Client(
+        api_key=api_key,
+        http_options=types.HttpOptions(
+            timeout=60_000,  # ms: give up on a single hung request after 60s
+            # Retry busy/rate-limited/server errors with growing waits (1s, 2s, 4s...).
+            retry_options=types.HttpRetryOptions(
+                attempts=5, initial_delay=1.0, max_delay=30.0,
+                http_status_codes=[408, 429, 500, 502, 503, 504],
+            ),
+        ),
+    )
 
 
 def ask(prompt: str, model: str = DEFAULT_MODEL) -> str:
