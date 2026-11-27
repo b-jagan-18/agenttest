@@ -26,4 +26,4 @@ def get_client() -> genai.Client:
 def ask(prompt: str, model: str = DEFAULT_MODEL) -> str:
     """Send one prompt, get one text reply. No memory between calls."""
     response = get_client().models.generate_content(model=model, contents=prompt)
-    return response.text
+    return response.text or ""  # .text is None if the reply was blocked or empty

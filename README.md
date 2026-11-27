@@ -21,7 +21,7 @@ Most teams test their chatbot by chatting with it for a few minutes before shipp
 python -m venv .venv
 .venv\Scripts\activate          # Windows  (macOS/Linux: source .venv/bin/activate)
 pip install -r requirements.txt
-cp .env.example .env            # then paste your Gemini API key into .env
+copy .env.example .env          # Windows  (macOS/Linux: cp .env.example .env), then paste your Gemini API key into .env
 python scripts/hello_llm.py     # check the key works
 python examples/support_bot.py  # chat with the demo target bot
 ```

@@ -41,18 +41,27 @@ class SupportBot:
         )
 
     def reply(self, message: str) -> str:
-        return self.chat.send_message(message).text
+        # .text is None if the reply was blocked or empty
+        return self.chat.send_message(message).text or "(no reply)"
 
 
 def main():
     bot = SupportBot()
     print("QuickBite support (type 'quit' to exit)\n")
     while True:
-        user = input("You: ").strip()
+        try:
+            user = input("You: ").strip()
+        except (KeyboardInterrupt, EOFError):  # Ctrl+C / Ctrl+Z
+            print()
+            break
         if user.lower() in {"quit", "exit"}:
             break
-        if user:
+        if not user:
+            continue
+        try:
             print(f"Bot: {bot.reply(user)}\n")
+        except Exception as e:  # network or API error: report it, keep chatting
+            print(f"[Error talking to the model: {e}]\n")
 
 
 if __name__ == "__main__":
