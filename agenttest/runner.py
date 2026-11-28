@@ -45,6 +45,10 @@ class Transcript:
     def to_dict(self) -> dict:
         return {"persona": self.persona.to_dict(), "turns": self.turns, "error": self.error}
 
+    @classmethod
+    def from_dict(cls, d: dict) -> "Transcript":
+        return cls(persona=Persona(**d["persona"]), turns=d["turns"], error=d.get("error", ""))
+
     def pretty(self) -> str:
         lines = [f"--- {self.persona.name} ({self.persona.language}) ---",
                  f"Goal: {self.persona.goal}", ""]
@@ -100,3 +104,9 @@ def save_transcripts(transcripts: list[Transcript], out_dir: str | Path = "runs"
         encoding="utf-8",
     )
     return path
+
+
+def load_transcripts(path: str | Path) -> list[Transcript]:
+    """Read a runs/<timestamp>.json file back into Transcript objects."""
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    return [Transcript.from_dict(d) for d in data]

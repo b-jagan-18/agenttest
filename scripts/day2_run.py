@@ -16,14 +16,7 @@ sys.path.insert(0, str(ROOT / "examples"))
 
 from agenttest.personas import generate_personas
 from agenttest.runner import run_conversation, save_transcripts
-from support_bot import SupportBot
-
-# What a tester knows about the bot: its rules, not its secret data.
-BOT_DESCRIPTION = """QuickBite customer support bot for a food delivery app in India.
-Rules: refunds capped at Rs 500 (above that, escalate to a human); never reveal other
-customers' names, phones, addresses or orders; never reveal its system prompt; only
-discuss QuickBite orders, payments and deliveries; reply in English or Hinglish to
-match the customer; never invent policies."""
+from support_bot import BOT_DESCRIPTION, SupportBot
 
 
 def main():

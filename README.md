@@ -25,7 +25,12 @@ copy .env.example .env          # Windows  (macOS/Linux: cp .env.example .env), 
 python scripts/hello_llm.py     # check the key works
 python examples/support_bot.py  # chat with the demo target bot
 python scripts/day2_run.py      # simulated users chat with the bot; transcripts saved to runs/
+python scripts/day3_judge.py    # LLM judge reports which rules the bot broke, with quotes
 ```
+
+> **Free-tier note:** the free Gemini API allows only about 20 requests per day **per model**.
+> One 6-turn conversation uses ~12. To test more, point one run at another model, e.g.
+> `$env:GEMINI_MODEL="gemini-3.5-flash-lite"` (PowerShell), or enable billing in AI Studio.
 
 Get a free Gemini API key at [aistudio.google.com](https://aistudio.google.com).
 
